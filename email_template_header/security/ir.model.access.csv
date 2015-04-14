@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_email_header,email.header,model_email_header,,1,1,1,0
+access_email_header_system,email.header system,model_email_header,base.group_system,1,1,1,1

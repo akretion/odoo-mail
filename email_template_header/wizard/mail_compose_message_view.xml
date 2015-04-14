@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="email_compose_message_wizard_header_view" model="ir.ui.view">
+            <field name="model">mail.compose.message</field>
+            <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+            <field name="arch" type="xml">
+                <field name="body" position="after">
+                    <field name="header_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
