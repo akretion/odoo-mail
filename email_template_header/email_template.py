@@ -37,11 +37,11 @@ class EmailTemplate(models.Model):
                 context=context)
             if langs:
                 ctx['lang'] = langs[res_id]
-        header_id = header_obj._get_header_id(
+        header = header_obj._get_header(
             cr, uid,  model=template.model_id.model, res_id=res_id,
             template_id=template_id, context=ctx)
-        if header_id:
-            ctx['use_mail_header_id'] = header_id
+        if header:
+            ctx['use_mail_header'] = header
         return super(EmailTemplate, self).send_mail(
             cr, uid, template_id, res_id, force_send=False,
             raise_exception=False, context=ctx)

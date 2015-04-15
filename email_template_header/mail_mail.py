@@ -26,9 +26,9 @@ class MailMail(models.Model):
 
     @api.model
     def create(self, vals):
-        if self._context.get('use_mail_header_id', False) \
+        if self._context.get('use_mail_header', False) \
                 and vals.get('body_html', False):
-            header = self._context.get('use_mail_header_id', False)
+            header = self._context.get('use_mail_header', False)
             body = header.header_footer_html.replace('#{body}', vals.get('body_html'))
             vals['body_html'] = body
         return super(MailMail,self).create(vals)
