@@ -18,8 +18,8 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 from openerp import models, fields, api
+
 
 class EmailHeader(models.Model):
     _name = 'email.header'
@@ -39,5 +39,3 @@ class EmailHeader(models.Model):
         "Surcharge this method to get a specific header/footer for your email"
         header_ids = self.search([])
         return header_ids and header_ids[0] or False
-
-

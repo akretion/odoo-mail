@@ -20,7 +20,6 @@
 ###############################################################################
 
 
-
 {
     'name': 'Email Template Header',
     'version': '0.1',
@@ -30,14 +29,12 @@
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',
     'depends': ['email_template'],
-    'init_xml': [],
-    'update_xml': [
+    'data': [
         'security/ir.model.access.csv',
         'company_view.xml',
         'email_header_view.xml',
         'wizard/mail_compose_message_view.xml',
     ],
-    'demo_xml': [],
+    'demo': [],
     'installable': True,
-    'active': False,
 }
