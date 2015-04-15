@@ -31,4 +31,4 @@ class MailMail(models.Model):
             header = self._context.get('use_mail_header_id', False)
             body = header.header_footer_html.replace('#{body}', vals.get('body_html'))
             vals['body_html'] = body
-        return = super(MailMail,self).create(vals)
+        return super(MailMail,self).create(vals)
