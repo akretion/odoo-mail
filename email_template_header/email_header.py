@@ -18,8 +18,8 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 from openerp import models, fields, api
+
 
 class EmailHeader(models.Model):
     _name = 'email.header'
@@ -35,9 +35,8 @@ class EmailHeader(models.Model):
              "and the footer. That is where the body will be inserted")
 
     @api.model
-    def _get_header_id(self, model=None, res_id=None, template_id=None):
-        "Surcharge this method to get a specific header/footer for your email"
-        header_ids = self.search([])
-        return header_ids and header_ids[0] or False
-
-
+    def _get_header(self, model=None, res_id=None, template_id=None):
+        "Override this method to get a specific header/footer for your email"
+        headers = self.search([])
+        # return an empty record because of issue https://github.com/odoo/odoo/issues/4384
+        return headers and headers[0] or self.env['email.header']

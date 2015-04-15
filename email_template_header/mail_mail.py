@@ -18,21 +18,17 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 from openerp import models, api
+
 
 class MailMail(models.Model):
     _inherit = 'mail.mail'
 
     @api.model
     def create(self, vals):
-        if self._context.get('use_mail_header_id', False) \
+        if self._context.get('use_mail_header', False) \
                 and vals.get('body_html', False):
-            header = self._context.get('use_mail_header_id', False)
+            header = self._context.get('use_mail_header', False)
             body = header.header_footer_html.replace('#{body}', vals.get('body_html'))
             vals['body_html'] = body
-        res = super(MailMail,self).create(vals)
-        return res
-
-
-
+        return super(MailMail,self).create(vals)

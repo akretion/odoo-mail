@@ -18,26 +18,31 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 from openerp import models, api
+
 
 class EmailTemplate(models.Model):
     _inherit = 'email.template'
 
     @api.cr_uid_id_context
-    def send_mail(self, cr, uid, template_id, res_id, force_send=False, raise_exception=False, context=None):
+    def send_mail(
+            self, cr, uid, template_id, res_id, force_send=False,
+            raise_exception=False, context=None):
         header_obj = self.pool['email.header']
         ctx = context.copy()
         template = self.browse(cr, uid, template_id, context=context)
         if template.lang:
-            langs = self.render_template_batch(cr, uid, template.lang, template.model, [res_id], context=context)
+            langs = self.render_template_batch(
+                cr, uid, template.lang, template.model, [res_id],
+                context=context)
             if langs:
                 ctx['lang'] = langs[res_id]
-        header_id = header_obj._get_header_id(cr, uid,
-                        model=template.model_id.model,
-                        res_id=res_id, template_id=template_id,
-                        context=ctx)
-        if header_id:
-            ctx['use_mail_header_id'] = header_id
-        return super(EmailTemplate, self).send_mail(cr, uid, template_id, res_id, force_send=False, raise_exception=False, context=ctx)
+        header = header_obj._get_header(
+            cr, uid,  model=template.model_id.model, res_id=res_id,
+            template_id=template_id, context=ctx)
+        if header:
+            ctx['use_mail_header'] = header
+        return super(EmailTemplate, self).send_mail(
+            cr, uid, template_id, res_id, force_send=False,
+            raise_exception=False, context=ctx)
 
