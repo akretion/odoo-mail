@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+      <record model="ir.ui.view" id="email_template_form">
+            <field name="name">email.template.header.form</field>
+            <field name="model">email.template</field>
+            <field name="inherit_id" ref="email_template.email_template_form"/>
+            <field name="arch" type="xml">
+                <field name="user_signature" position="after">
+                    <field name="header_id"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

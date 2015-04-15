@@ -18,20 +18,18 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 from openerp import models, fields, api
+
 
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
     def _get_default_header_id(self):
         header_obj = self.env['email.header']
-        return header_obj._get_header_id()
-            
+        headers = header_obj.search([])
+        # return an empty record because of issue https://github.com/odoo/odoo/issues/4384
+        return headers and headers[0] or header_obj
 
     default_email_header_id = fields.Many2one(comodel_name='email.header',
                                               string = 'Default Email Header',
                                               default=_get_default_header_id)
-
-
-
