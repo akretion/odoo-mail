@@ -34,6 +34,7 @@
         'company_view.xml',
         'email_header_view.xml',
         'wizard/mail_compose_message_view.xml',
+        'email_template_view.xml',
     ],
     'demo': [],
     'installable': True,

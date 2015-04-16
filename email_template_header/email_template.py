@@ -18,11 +18,14 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from openerp import models, api
+from openerp import models, api, fields
 
 
 class EmailTemplate(models.Model):
     _inherit = 'email.template'
+
+    header_id = fields.Many2one(comodel_name='email.header',
+                                string="Email Header")
 
     @api.cr_uid_id_context
     def send_mail(
@@ -37,9 +40,12 @@ class EmailTemplate(models.Model):
                 context=context)
             if langs:
                 ctx['lang'] = langs[res_id]
-        header = header_obj._get_header(
-            cr, uid,  model=template.model_id.model, res_id=res_id,
-            template_id=template_id, context=ctx)
+        if template.header_id:
+            header = template.header_id
+        else:
+            header = header_obj._get_header(
+                cr, uid,  model=template.model_id.model, res_id=res_id,
+                template_id=template_id, context=ctx)
         if header:
             ctx['use_mail_header'] = header
         return super(EmailTemplate, self).send_mail(
