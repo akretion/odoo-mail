@@ -36,7 +36,11 @@ class EmailHeader(models.Model):
 
     @api.model
     def _get_header(self, model=None, res_id=None, template_id=None):
-        "Override this method to get a specific header/footer for your email"
-        headers = self.search([])
-        # return an empty record because of issue https://github.com/odoo/odoo/issues/4384
-        return headers and headers[0] or self.env['email.header']
+        """
+        Override this method to get a specific header/footer for your email.
+        By default we use the header set on the company.
+        """
+        company_obj = self.env['res.company']
+        company_id = company_obj._company_default_get(object=model)
+        header = company_obj.browse(company_id).default_email_header_id
+        return header

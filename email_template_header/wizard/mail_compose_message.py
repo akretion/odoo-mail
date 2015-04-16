@@ -18,42 +18,40 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
 from openerp import models, fields, api, exceptions, _
 
-class MailComposeMessage(models.TransientModel):
 
+class MailComposeMessage(models.TransientModel):
     _inherit = 'mail.compose.message'
 
-    @api.multi
-    def _get_header_id(self):
+    @api.model
+    def _get_header(self, model=None, res_id=None, template_id=None):
         header_obj = self.env['email.header']
-        return header_obj._get_header_id()
+        return header_obj._get_header(
+            model=model, res_id=res_id, template_id=template_id)
 
     header_id = fields.Many2one(comodel_name='email.header',
-                                    string = 'Default Email Header')
+                                string = 'Default Email Header')
 
     @api.model
-    def default_get(fields):
+    def default_get(self, fields):
         result = super(MailComposeMessage, self).default_get(fields)
         header_obj = self.env['email.header']
         model = result.get('model', None)
         res_id = result.get('res_id', None)
         template_id = result.get('template_id', None)
-        header_id = header_obj._get_header_id(model=model,
-                        res_id=res_id, template_id=template_id)
-        if model and res_id:
-            record = self.pool[model].browse(cr, uid, res_id, context=context)
-            result['partner_ids'] = [record.partner_id.id]
-        if header_id:
-            result['header_id'] = header_id
+        header = self._get_header(
+            model=model, res_id=res_id, template_id=template_id)
+        print "header compose message", header
+        if header:
+            result['header_id'] = header.id
         return result
 
     @api.multi
     def send_mail(self):
-        for wizard in self.browse(cr, uid, ids, context=context):
-            if wizard.header_id:
-                self._context['use_mail_header_id'] = wizard.header_id.id
-        return super(MailComposeMessage, self).send_mail(cr, uid, ids,
-                                                         context=context)
-
+        if self.header_id:
+            header = self.header_id
+            return super(
+                MailComposeMessage, self.with_context(use_mail_header=header)
+                ).send_mail()
+        return super(MailComposeMessage, self).send_mail()
