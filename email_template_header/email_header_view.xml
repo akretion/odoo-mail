@@ -2,6 +2,24 @@
 <openerp>
     <data>
 
+        <record id="email_header_form_view" model="ir.ui.view">
+            <field name="name">Email Header</field>
+            <field name="model">email.header</field>
+            <field name="arch" type="xml">
+                <form string="Email Header">
+                    <sheet>
+                        <h1>
+                           <label string="Name"/>
+                           <field name="name" class="oe_inline"/>
+                        </h1>
+                        <group name="header_html">
+                            <field name="header_footer_html" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_email_header">
             <field name="name">Header/Footer</field>
             <field name="res_model">email.header</field>
@@ -9,8 +27,11 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="email_header_menu" parent="base.menu_email" action="action_email_header"
-                  sequence="25"/>
+        <menuitem
+            id="email_header_menu"
+            parent="base.menu_email"
+            action="action_email_header"
+            sequence="25"/>
 
     </data>
 </openerp>
