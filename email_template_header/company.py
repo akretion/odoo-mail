@@ -25,9 +25,10 @@ class ResCompany(models.Model):
     _inherit = 'res.company'
 
     def _get_default_header_id(self):
-        headers = self.env['email.header'].search([])
+        header_obj = self.env['email.header']
+        headers = header_obj.search([])
         # return an empty record because of issue https://github.com/odoo/odoo/issues/4384
-        return headers and headers[0] or self.env['email.header']
+        return headers and headers[0] or header_obj
 
     default_email_header_id = fields.Many2one(comodel_name='email.header',
                                               string = 'Default Email Header',
