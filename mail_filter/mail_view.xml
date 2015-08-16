@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_mail_tree">
+            <field name="name">mail.mail.tree</field>
+            <field name="model">mail.mail</field>
+            <field name="inherit_id" ref="mail.view_mail_tree"/>
+            <field name="arch" type="xml">
+                <button name="cancel" position="after">
+                    <field name="spamoo_blocked"/>
+                </button>
+                <button name="send" position="attributes">
+                    <attribute name="name">send_for_real</attribute>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>
