@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="mail.view_mail_tree"/>
             <field name="arch" type="xml">
                 <button name="cancel" position="after">
-                    <field name="spamoo_blocked"/>
+                    <field name="spamoo_blocked" groups="base.group_system"/>
                 </button>
                 <button name="send" position="attributes">
                     <attribute name="name">send_for_real</attribute>

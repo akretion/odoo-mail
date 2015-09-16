@@ -44,3 +44,26 @@ class MailMail(models.Model):
     @api.multi
     def send_for_real(self):
         return self.with_context(I_really_want_to_send_this_mail=True).send()
+
+    @api.model
+    def _get_domain_mail_to_really_send(self):
+        return []
+
+    @api.model
+    def _domain_filter_defined(self):
+        return False
+
+    @api.cr_uid
+    def process_email_queue(self, cr, uid, ids=None, context=None):
+        if self._domain_filter_defined(cr, uid, context=context):
+            domain = self._get_domain_mail_to_really_send(
+                cr, uid, context=context)
+            if context is None:
+                context={}
+            context.update({
+                'I_really_want_to_send_this_mail': True,
+                'filters': domain,
+                })
+            return super(MailMail, self).process_email_queue(
+                cr, uid, ids=ids, context=context)
+        return True
