@@ -29,7 +29,7 @@ class StockPicking(models.Model):
     availability_sent_by_mail = fields.Boolean()
 
     @api.model
-    def _get_send_picking_availability_domain(self):
+    def _get_send_picking_availability_by_email_domain(self):
         return [
             ('state', '=', 'assigned'),
             ('availability_sent_by_mail', '=', False),
@@ -38,7 +38,7 @@ class StockPicking(models.Model):
 
     @api.model
     def _cron_send_picking_availability(self):
-        domain = self._get_send_picking_availability_domain()
+        domain = self._get_send_picking_availability_by_email_domain()
         pickings = self.env['stock.picking'].search(domain)
         template = self.env.ref(
             'mail_picking_available.email_template_picking_available')
