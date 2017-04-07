@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
+<odoo>
     <data noupdate="1">
 
         <record id="ir_cron_send_mail_picking_action" model="ir.cron">
@@ -14,7 +14,7 @@
         </record>
 
         <!--Email template -->
-        <record id="email_template_picking_available" model="email.template">
+        <record id="email_template_picking_available" model="mail.template">
             <field name="name">Picking Ready</field>
             <field name="email_from">${(object.company_id.email or '')|safe}</field>
             <field name="partner_to">${object.partner_id.id}</field>
@@ -26,4 +26,4 @@
         </record>
 
     </data>
-</openerp>
+</odoo>
