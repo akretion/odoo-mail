@@ -1,8 +1,9 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-{module_title}
-==============
+=============
+Mail Filter
+=============
 
 This module was written to extend to remove the posibility to odoo to send an email directly. Indeed some module force to send an email immediatly or send an email without you know it. This module will only sent email explicitly so you can check what odoo try to send and then be sure that no spam will be sent.
 All email will be block by default and you will have to click on each mail to
@@ -37,4 +38,4 @@ Contributors
 ------------
 
 * Sebastien BEAU <sebastien.beau@akretion.com>
-
+* MonsieurB <monsieurb@saaslys.com>
