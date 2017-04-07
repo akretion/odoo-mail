@@ -14,7 +14,7 @@
         </record>
 
         <!--Email template -->
-        <record id="email_template_picking_available" model="email.template">
+        <record id="email_template_picking_available" model="mail.template">
             <field name="name">Picking Ready</field>
             <field name="email_from">${(object.company_id.email or '')|safe}</field>
             <field name="partner_to">${object.partner_id.id}</field>
