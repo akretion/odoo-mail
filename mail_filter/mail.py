@@ -56,8 +56,7 @@ class MailMail(models.Model):
     @api.cr_uid
     def process_email_queue(self, cr, uid, ids=None, context=None):
         if self._domain_filter_defined(cr, uid, context=context):
-            domain = self._get_domain_mail_to_really_send(
-                cr, uid, context=context)
+            domain = self._get_domain_mail_to_really_send(uid, context=context)
             if context is None:
                 context={}
             context.update({
