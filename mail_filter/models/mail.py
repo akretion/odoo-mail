@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 
 class MailMail(models.Model):
-    _inherit='mail.mail'
+    _inherit = 'mail.mail'
 
     spamoo_blocked = fields.Boolean()
 
@@ -44,7 +44,7 @@ class MailMail(models.Model):
             context.update({
                 'I_really_want_to_send_this_mail': True,
                 'filters': domain,
-                })
+            })
             return super(MailMail, self).process_email_queue(
                 ids=ids, context=context)
         return True
