@@ -36,15 +36,13 @@ class MailMail(models.Model):
         return False
 
     @api.model
-    def process_email_queue(self, ids=None, context=None):
+    def process_email_queue(self, ids=None):
         if self._domain_filter_defined():
             domain = self._get_domain_mail_to_really_send()
-            if context is None:
-                context = {}
-            context.update({
+            ctx = {
                 'I_really_want_to_send_this_mail': True,
                 'filters': domain,
-            })
-            return super(MailMail, self).process_email_queue(
-                ids=ids, context=context)
+            }
+            return super(MailMail, self.with_context(ctx)).process_email_queue(
+                ids=ids)
         return True
