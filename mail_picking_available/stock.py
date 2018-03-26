@@ -37,9 +37,14 @@ class StockPicking(models.Model):
             ]
 
     @api.model
+    def _get_send_picking_availability_by_email_limit(self):
+        return None
+
+    @api.model
     def _cron_send_picking_availability(self):
         domain = self._get_send_picking_availability_by_email_domain()
-        pickings = self.env['stock.picking'].search(domain)
+        limit = self._get_send_picking_availability_by_email_limit()
+        pickings = self.env['stock.picking'].search(domain, limit=limit)
         template = self.env.ref(
             'mail_picking_available.email_template_picking_available')
         for picking in pickings:
